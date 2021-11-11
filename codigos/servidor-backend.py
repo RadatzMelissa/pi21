@@ -1,5 +1,5 @@
 from config import *
-from classes_pi import Pessoa
+from classes_pi import Pessoa, Animal_adocao
 
 @app.route("/")
 def inicio():
@@ -17,6 +17,35 @@ def listar_pessoas():
     # PERMITIR resposta para outras pedidos oriundos de outras tecnologias
     resposta.headers.add("Access-Control-Allow-Origin", "*")
     return resposta # retornar...
+
+@app.route("/listar_animais")
+def listar_animais():
+    # obter as pessoas do cadastro
+    animais = db.session.query(Animal_adocao).all()
+    # aplicar o método json que a classe Pessoa possui a cada elemento da lista
+    animais_em_json = [ x.json() for x in animais ]
+    # converter a lista do python para jsons
+    resposta = jsonify(animais_em_json)
+    # PERMITIR resposta para outras pedidos oriundos de outras tecnologias
+    resposta.headers.add("Access-Control-Allow-Origin", "*")
+    return resposta # retornar...
+
+'''@app.route("/listar/<string:classe>")
+# mais uma função similar à listar_pessoa :-/ vamos tentar generalizar :-)
+def listar(classe):
+    # obter os dados da classe informada
+    dados = None
+    if classe == "Animal_adocao":
+      dados = db.session.query(Animal_adocao).all()
+    elif classe == "Pessoa":
+      dados = db.session.query(Pessoa).all()
+    # converter dados para json
+    lista_jsons = [ x.json() for x in dados ]
+    # converter a lista do python para json
+    resposta = jsonify(lista_jsons)
+    # PERMITIR resposta para outras pedidos oriundos de outras tecnologias
+    resposta.headers.add("Access-Control-Allow-Origin", "*")
+    return resposta'''
 
 @app.route("/incluir_pessoa", methods=['post'])
 def incluir_pessoa():

@@ -113,3 +113,20 @@ if __name__ == "__main__":
     print(f"Animal para adoção: {a1}")
     # Imprimir o animal cadastrado em formato json
     print(f"Animal para adoção em json: {a1.json()}")
+
+
+    '''$ curl localhost:5000/listar/ExameRealizado
+    [
+      {
+        "nome": "lulusinho", 
+        "idade": "12", 
+        "sexo": "macho", 
+        "id": 2, 
+        "pessoa": {
+          "nome": "nome1", "email": "email1", 
+          "telefone": "11 1111-1111", "cidade": "cidade1", 
+          "bairro": "bairro1", "senha": "senha1"
+        }, 
+        "pessoa_id": 1
+      }
+    ]'''
